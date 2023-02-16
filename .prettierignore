@@ -1,0 +1,35 @@
+# 忽略的文件夹:
+build/
+coverage/
+.vscode/
+docker/
+node_modules/
+dist/
+public/
+
+# 忽略的文件
+package.json
+package-lock.json
+yarn.lock
+yarn-error.log
+.babelrc
+.browserslistrc
+.eslintignore
+.gitignore
+.prettierignore
+.editorconfig
+.DS_Store
+.project
+*.yml
+*.yaml
+*.svg
+*.png
+*.jpg
+*.gif
+*.md
+*.ejs
+*.min.js
+*.min.css
+*.html
+*.js
+*.d.ts

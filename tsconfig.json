@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "lib": ["dom", "ES2019"],
+        "target": "ES2019",
+        "skipLibCheck": true,
+        "outFile": "./tools-vue3.js",
+        "sourceMap": false,
+        "removeComments": true,
+        "moduleResolution": "node"
+    },
+    "include": ["dist"],
+    "exclude": ["node_modules"]
+}
