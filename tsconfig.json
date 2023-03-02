@@ -1,12 +1,18 @@
 {
     "compilerOptions": {
-        "module": "amd",
-        "lib": ["dom", "ES2019"],
-        "target": "ES2019",
-        "skipLibCheck": true,
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "strict": true,
+        "jsx": "preserve",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
         "sourceMap": false,
-        "removeComments": true,
-        "moduleResolution": "node"
+        "esModuleInterop": true,
+        "lib": ["ESNext", "DOM"],
+        "skipLibCheck": true,
+        "noEmit": true
     },
     "include": ["src"],
     "exclude": ["node_modules"]
