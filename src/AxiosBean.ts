@@ -118,11 +118,16 @@ export default class AxiosBean {
         )
     }
 
-    private getHttp<T = any>(
-        request: AxiosRequestConfig | string,
-        data: any,
-        method: string
-    ): Promise<AxiosBeanRes<T>> {
+    /**
+     * 获取请求-一般不用这个方法
+     * @param request
+     * @param data
+     * @param method
+     * @returns
+     * @example
+     * getHttp<T>('/data',{} 'get')
+     */
+    httpHandle<T = any>(request: AxiosRequestConfig | string, data: any, method: string): Promise<AxiosBeanRes<T>> {
         if (typeof request !== 'string') method = request.method ?? method
         return new Promise<AxiosBeanRes<T>>((resolve, reject) => {
             if (typeof request === 'string') {
@@ -146,19 +151,19 @@ export default class AxiosBean {
     }
 
     get<T = any>(request: AxiosRequestConfig | string, data: any = {}): Promise<AxiosBeanRes<T>> {
-        return this.getHttp<T>(request, data, 'get')
+        return this.httpHandle<T>(request, data, 'get')
     }
 
     post<T = any>(request: AxiosRequestConfig | string, data: any = {}): Promise<AxiosBeanRes<T>> {
-        return this.getHttp<T>(request, data, 'post')
+        return this.httpHandle<T>(request, data, 'post')
     }
 
     delete<T = any>(request: AxiosRequestConfig | string, data: any = {}): Promise<AxiosBeanRes<T>> {
-        return this.getHttp<T>(request, data, 'delete')
+        return this.httpHandle<T>(request, data, 'delete')
     }
 
     put<T = any>(request: AxiosRequestConfig | string, data: any = {}): Promise<AxiosBeanRes<T>> {
-        return this.getHttp<T>(request, data, 'put')
+        return this.httpHandle<T>(request, data, 'put')
     }
 }
 
