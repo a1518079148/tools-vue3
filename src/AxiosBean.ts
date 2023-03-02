@@ -63,8 +63,28 @@ export default class AxiosBean {
 }
 
 export interface AxiosBeanRes<T = any> {
+    /**
+     * 消息代码
+     */
     code: string
+    /**
+     * 消息状态，code是200时为true，其他为false
+     */
     status: boolean
+    /**
+     * 使用消息字段1
+     */
     message: string
+    /**
+     * 使用消息字段2
+     */
+    msg: string
+    /**
+     * 请求返回数据
+     */
     data: T
+    /**
+     * 数组长度
+     */
+    total: number
 }
