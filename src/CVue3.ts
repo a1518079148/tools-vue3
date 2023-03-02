@@ -1,6 +1,6 @@
 import { ComponentInternalInstance, getCurrentInstance, onUnmounted } from 'vue'
 
-class CVue3 {
+export default class CVue3 {
     /**
      * 注册销毁事件
      */
@@ -31,6 +31,3 @@ class CVue3 {
         })
     }
 }
-
-
-export { CVue3 }
