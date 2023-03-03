@@ -1,3 +1,5 @@
+import { IWebSocketHeart, IWebSocketBean } from './websocket'
+
 /**
  * WebSocket心跳机制
  */

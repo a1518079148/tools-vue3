@@ -1,3 +1,5 @@
+import { IWebSocketReconnect, IWebSocketBean } from './websocket'
+
 /**
  * WebSocket重连机制和重连重发数据机制
  */

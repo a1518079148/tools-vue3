@@ -1,4 +1,10 @@
+import WebSocketStatusEnum from './WebSocketStatusEnum'
 interface IWebSocketBean {
+
+    /**
+     * 连接状态
+     */
+    status: WebSocketStatusEnum 
 
     /**
      * WebSocket对象
@@ -39,6 +45,9 @@ interface IWebSocketBean {
     onerror:()=>void
 }
 
+/**
+ * 参数信息
+ */
 interface IWebSocketBeanParam {
 
     /**

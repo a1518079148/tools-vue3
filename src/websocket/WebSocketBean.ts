@@ -1,11 +1,14 @@
+import { IWebSocketBean, IWebSocketReconnect, IWebSocketBeanParam } from './websocket'
 import WebSocketHeart from './WebSocketHeart'
 import WebSocketReconnect from './WebSocketReconnect'
+import { WebSocketStatusEnum } from './WebSocketStatusEnum'
 
 /**
  * WebSocket封装类
  * @param 封装了心跳机制 、重连机制
  */
 export default class WebSocketBean implements IWebSocketBean {
+    status: WebSocketStatusEnum = null as any
     websocket: WebSocket = null as any
     heart: WebSocketHeart = null as any
     reconnect: IWebSocketReconnect = null as any
@@ -25,6 +28,9 @@ export default class WebSocketBean implements IWebSocketBean {
 
         //调用生命周期
         if (this.param.onopen) await this.param.onopen()
+
+        //修改状态为已连接
+        this.status = WebSocketStatusEnum.open
     }
 
     onmessage = (ev: MessageEvent<any>) => {
@@ -53,6 +59,9 @@ export default class WebSocketBean implements IWebSocketBean {
 
         //创建连接
         this.websocket = new WebSocket(param.url)
+
+        //修改状态为加载中
+        this.status = WebSocketStatusEnum.load
 
         //绑定连接成功事件
         this.websocket.onopen = this.onopen
@@ -101,5 +110,8 @@ export default class WebSocketBean implements IWebSocketBean {
             this.heart.stop()
             this.heart = null as any
         }
+
+        //修改状态为已关闭
+        this.status = WebSocketStatusEnum.close
     }
 }
