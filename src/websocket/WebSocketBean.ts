@@ -87,7 +87,7 @@ export default class WebSocketBean implements IWebSocketBean {
         if (this.sendObj === null) this.sendObj = new WebSocketSend(this)
 
         //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-        window.addEventListener('beforeunload', this.close)
+        window.addEventListener('beforeunload', this.dispose)
     }
 
     /**
@@ -95,7 +95,7 @@ export default class WebSocketBean implements IWebSocketBean {
      * @param data 数据对象，Object、Array、String
      */
     send(data: any, resend: boolean = false) {
-        return this.sendObj.send(data, resend)
+        return this.sendObj?.send(data, resend)
     }
 
     /**
@@ -103,12 +103,15 @@ export default class WebSocketBean implements IWebSocketBean {
      * @param sendId
      */
     offsend = (sendId: string) => {
-        this.sendObj.offsend(sendId)
+        this.sendObj?.offsend(sendId)
     }
 
+    /**
+     * 关闭socket，销毁绑定事件、心跳事件、窗口关闭事件，修改状态为已关闭
+     */
     close = () => {
         if (this.websocket === null) return
-        window.removeEventListener('beforeunload', this.close)
+        window.removeEventListener('beforeunload', this.dispose)
         //销毁绑定事件，关闭socket
         if (this.websocket) {
             this.websocket.onerror = null
@@ -126,5 +129,20 @@ export default class WebSocketBean implements IWebSocketBean {
 
         //修改状态为已关闭
         this.status = WebSocketStatusEnum.close
+    }
+
+    /**
+     * 销毁所有对象
+     */
+    dispose = () => {
+        this.close()
+        if (this.reconnect) {
+            this.reconnect.stop()
+            this.reconnect = null as any
+        }
+        if (this.sendObj) {
+            this.sendObj.clear()
+            this.sendObj = null as any
+        }
     }
 }

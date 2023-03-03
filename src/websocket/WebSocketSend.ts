@@ -124,4 +124,12 @@ export default class WebSocketSend implements IWebSocketSend {
             if (sendStatus !== false) this.sendTemp.splice(i, 1)
         }
     }
+
+    /**
+     * 清空所有缓存数据
+     */
+    clear = () => {
+        this.sendMap = {}
+        this.sendTemp = []
+    }
 }

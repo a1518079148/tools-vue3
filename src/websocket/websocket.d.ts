@@ -49,6 +49,16 @@ interface IWebSocketBean {
      * 异常操作绑定
      */
     onerror:()=>void
+
+    /**
+     * 关闭socket，销毁绑定事件、心跳事件、窗口关闭事件，修改状态为已关闭
+     */
+    close: () => void
+    
+    /**
+     * 销毁所有对象
+     */
+    dispose: () => void
 }
 
 /**
@@ -245,4 +255,8 @@ interface IWebSocketSend {
      */
     onopen: () => void
 
+    /**
+     * 清空所有缓存数据
+     */
+    clear: () => void
 }
