@@ -59,7 +59,7 @@ interface IWebSocketBeanParam {
     /**
      * 生命周期-在建立连接以后首先调用
      */
-    onopen?:()=>void
+    onopen?:()=>Promise<any>
 
     /**
      * 生命周期-在获取到数据以后首先调用

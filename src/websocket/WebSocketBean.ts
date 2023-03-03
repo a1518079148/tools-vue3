@@ -16,15 +16,15 @@ export default class WebSocketBean implements IWebSocketBean {
         this.create(this.param)
     }
 
-    onopen = () => {
-        //调用生命周期
-        if (this.param.onopen) this.param.onopen()
-
+    onopen = async () => {
         //开启心跳
         this.heart.start()
 
         //通知连接成功或重连成功
         this.reconnect.stop()
+
+        //调用生命周期
+        if (this.param.onopen) await this.param.onopen()
     }
 
     onmessage = (ev: MessageEvent<any>) => {
