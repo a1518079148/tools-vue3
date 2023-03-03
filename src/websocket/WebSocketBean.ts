@@ -3,7 +3,7 @@ import WebSocketReconnect from './WebSocketReconnect'
 
 /**
  * WebSocket封装类
- * @param 封装了心跳机制 、重连机制、重连重发机制
+ * @param 封装了心跳机制 、重连机制
  */
 export default class WebSocketBean implements IWebSocketBean {
     websocket: WebSocket = null as any
@@ -76,9 +76,8 @@ export default class WebSocketBean implements IWebSocketBean {
     /**
      * 发送数据
      * @param data 数据对象，Object、Array、String
-     * @param reSend 是否需要重连后重发，默认为false，传入true时会返回消息队列id，调用offSend(id)手动销毁该队列
      */
-    send(data: any, reSend: boolean = false) {
+    send(data: any) {
         if ((data !== null && typeof data === 'object') || Array.isArray(data)) {
             data = JSON.stringify(data)
         }

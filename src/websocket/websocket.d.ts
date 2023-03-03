@@ -9,6 +9,11 @@ interface IWebSocketBean {
      * 心跳对象
      */
     heart: WebSocketHeart
+    
+    /**
+     * 重连对象
+     */
+    reconnect: IWebSocketReconnect
 
     /**
      * 参数信息
@@ -25,9 +30,8 @@ interface IWebSocketBean {
     /**
      * 发送数据
      * @param data 数据对象，Object、Array、String
-     * @param reSend 是否需要重连后重发，默认为false，传入true时会返回消息队列id，调用offSend(id)手动销毁该队列
      */
-    send(data: any, reSend?: boolean): void
+    send(data: any): void
 
     /**
      * 异常操作绑定
@@ -161,7 +165,7 @@ interface IWebSocketHeart {
 }
 
 /**
- * 心跳
+ * 重连
  */
 interface IWebSocketReconnect {
     /**
