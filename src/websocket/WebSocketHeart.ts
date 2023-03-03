@@ -38,5 +38,7 @@ export default class WebSocketHeart implements IWebSocketHeart {
         this.timer = null as any
     }
 
-    onmessage = (ev: MessageEvent<any>) => {}
+    onmessage = (ev: MessageEvent<any>) => {
+        if (ev.data === this.heartGet) this.failNum = 0
+    }
 }
