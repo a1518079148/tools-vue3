@@ -1,4 +1,4 @@
-import WebSocketStatusEnum from './WebSocketStatusEnum'
+import WebSocketStatusEnum from './WebSocketEnum'
 interface IWebSocketBean {
 
     /**
@@ -54,7 +54,7 @@ interface IWebSocketBean {
      * 关闭socket，销毁绑定事件、心跳事件、窗口关闭事件，修改状态为已关闭
      */
     close: () => void
-    
+
     /**
      * 销毁所有对象
      */

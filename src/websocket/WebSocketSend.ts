@@ -1,6 +1,6 @@
 import ObjectUtil from '../ObjectUtil'
 import { IWebSocketBean, IWebSocketSend } from './websocket'
-import { WebSocketStatusEnum } from './WebSocketStatusEnum'
+import { WebSocketStatusEnum } from './WebSocketEnum'
 
 /**
  * WebSocket数据发送管理

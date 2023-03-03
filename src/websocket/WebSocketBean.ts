@@ -2,7 +2,7 @@ import { IWebSocketBean, IWebSocketBeanParam, IWebSocketReconnect, IWebSocketSen
 import WebSocketHeart from './WebSocketHeart'
 import WebSocketReconnect from './WebSocketReconnect'
 import WebSocketSend from './WebSocketSend'
-import { WebSocketStatusEnum } from './WebSocketStatusEnum'
+import { WebSocketStatusEnum } from './WebSocketEnum'
 
 /**
  * WebSocket封装类
