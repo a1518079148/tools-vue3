@@ -45,6 +45,7 @@ export default class WebSocketReconnect implements IWebSocketReconnect {
         if (!this.status) return
         if (this.timer !== null) return
         this.num = 0
+        if (this.websocketbean.param.onreconnect) this.websocketbean.param.onreconnect()
         this.timer = setInterval(() => {
             if (this.num >= this.reconnectMaxNum) {
                 if (this.websocketbean.param.onFailReconnect) this.websocketbean.param.onFailReconnect()
