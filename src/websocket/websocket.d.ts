@@ -22,6 +22,11 @@ interface IWebSocketBean {
     reconnect: IWebSocketReconnect
 
     /**
+     * 发送对象
+     */
+    sendObj: IWebSocketSend
+
+    /**
      * 参数信息
      */
     param:IWebSocketBeanParam
@@ -36,8 +41,9 @@ interface IWebSocketBean {
     /**
      * 发送数据
      * @param data 数据对象，Object、Array、String
+     * @param resend 是否需要在重新连上以后再次发送该数据
      */
-    send(data: any): void
+    send(data: any, resend?: boolean): string | boolean
 
     /**
      * 异常操作绑定
@@ -210,5 +216,33 @@ interface IWebSocketReconnect {
      * 关闭重连
      */
     stop: () => void
+
+}
+
+/**
+ * 发送数据管理
+ */
+interface IWebSocketSend {
+    /**
+     * WebSocketBean对象
+     */
+    websocketbean: IWebSocketBean
+
+    /**
+     * 发送数据
+     * @param data 数据对象，Object、Array、String
+     */
+    send(data: any, resend?: boolean): string | boolean
+
+    /**
+     * 销毁需要重发的数据信息
+     * @param sendId
+     */
+    offsend: (sendId: string) => void
+
+    /**
+     * 通知连接打开
+     */
+    onopen: () => void
 
 }

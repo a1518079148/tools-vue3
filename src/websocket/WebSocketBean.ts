@@ -1,6 +1,7 @@
-import { IWebSocketBean, IWebSocketReconnect, IWebSocketBeanParam } from './websocket'
+import { IWebSocketBean, IWebSocketBeanParam, IWebSocketReconnect, IWebSocketSend } from './websocket'
 import WebSocketHeart from './WebSocketHeart'
 import WebSocketReconnect from './WebSocketReconnect'
+import WebSocketSend from './WebSocketSend'
 import { WebSocketStatusEnum } from './WebSocketStatusEnum'
 
 /**
@@ -12,6 +13,7 @@ export default class WebSocketBean implements IWebSocketBean {
     websocket: WebSocket = null as any
     heart: WebSocketHeart = null as any
     reconnect: IWebSocketReconnect = null as any
+    sendObj: IWebSocketSend = null as any
     param: IWebSocketBeanParam
 
     constructor(param: IWebSocketBeanParam) {
@@ -31,6 +33,9 @@ export default class WebSocketBean implements IWebSocketBean {
 
         //修改状态为已连接
         this.status = WebSocketStatusEnum.open
+
+        //通知发送数据
+        this.sendObj.onopen()
     }
 
     onmessage = (ev: MessageEvent<any>) => {
@@ -75,8 +80,11 @@ export default class WebSocketBean implements IWebSocketBean {
         //创建心跳
         this.heart = new WebSocketHeart(this)
 
-        //创建重连，只存在一个重连对象，如果存在则跳过
+        //创建重连，如果存在则跳过
         if (this.reconnect === null) this.reconnect = new WebSocketReconnect(this)
+
+        //创建发送数据管理，如果存在则跳过
+        if (this.sendObj === null) this.sendObj = new WebSocketSend(this)
 
         //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
         window.addEventListener('beforeunload', this.close)
@@ -86,11 +94,16 @@ export default class WebSocketBean implements IWebSocketBean {
      * 发送数据
      * @param data 数据对象，Object、Array、String
      */
-    send(data: any) {
-        if ((data !== null && typeof data === 'object') || Array.isArray(data)) {
-            data = JSON.stringify(data)
-        }
-        this.websocket.send(data)
+    send(data: any, resend: boolean = false) {
+        return this.sendObj.send(data, resend)
+    }
+
+    /**
+     * 销毁需要重发的数据信息
+     * @param sendId
+     */
+    offsend = (sendId: string) => {
+        this.sendObj.offsend(sendId)
     }
 
     close = () => {

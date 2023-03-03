@@ -1,11 +1,11 @@
 import ObjectUtil from '../ObjectUtil'
-import { IWebSocketBean } from './websocket'
+import { IWebSocketBean, IWebSocketSend } from './websocket'
 import { WebSocketStatusEnum } from './WebSocketStatusEnum'
 
 /**
  * WebSocket数据发送管理
  */
-export default class WebSocketSend {
+export default class WebSocketSend implements IWebSocketSend {
     websocketbean: IWebSocketBean
 
     constructor(websocketbean: IWebSocketBean) {
@@ -15,7 +15,7 @@ export default class WebSocketSend {
     /**
      * 临时发送管理对象
      */
-    sendTemp: { tag: string; data: any; resend: boolean }[] = []
+    sendTemp: { tag: string; data: any; resend: boolean; sendId?: string }[] = []
 
     /**
      * 重新发送id
@@ -47,18 +47,21 @@ export default class WebSocketSend {
      */
     send(data: any, resend: boolean = false) {
         if (this.websocketbean.status === WebSocketStatusEnum.open) {
+            let sendId: string = null as any
+
             //先判断是不是缓存待发送的数据，如果是取出待发送的数据和状态
             if (ObjectUtil.isObject(data)) {
                 if (data.tag === this.tag) {
-                    data = data.data
                     resend = data.resend
+                    //如果resend是true，sendId一定存在
+                    if (resend) sendId = data.sendId
+                    data = data.data
                 }
             }
 
             //如果需要重发就保存起来
-            let sendId = null
             if (resend) {
-                sendId = this.getSendId()
+                if (sendId === null) sendId = this.getSendId()
                 this.sendMap[sendId] = data
             }
 
@@ -71,21 +74,28 @@ export default class WebSocketSend {
             this.websocketbean.websocket.send(data)
 
             //如果是需要重发的返回sendId
-            return resend ? true : sendId
+            return resend ? sendId : true
         } else {
+            let sendId: string = null as any
+
             if (ObjectUtil.isObject(data)) {
                 //说明是缓存待发送数据，不做处理
                 if (data.tag === this.tag) return false
             }
 
             //未连接上时存入临时缓存，连上后发送
-            this.sendTemp.push({
+            const sendTempItem: any = {
                 tag: this.tag,
                 data,
                 resend
-            })
+            }
 
-            return false
+            if (resend) {
+                sendId = this.getSendId()
+                sendTempItem.sendId = sendId
+            }
+            this.sendTemp.push(sendTempItem)
+            return resend ? sendId : false
         }
     }
 
@@ -111,7 +121,7 @@ export default class WebSocketSend {
         for (let i = this.sendTemp.length - 1; i >= 0; i--) {
             const item = this.sendTemp[i]
             const sendStatus = this.send(item)
-            if (sendStatus) this.sendTemp.splice(i, 1)
+            if (sendStatus !== false) this.sendTemp.splice(i, 1)
         }
     }
 }
