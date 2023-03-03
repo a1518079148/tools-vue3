@@ -46,6 +46,12 @@ interface IWebSocketBean {
     send(data: any, resend?: boolean): string | boolean
 
     /**
+     * 销毁需要重发的数据信息
+     * @param sendId
+     */
+    offsend: (sendId: string) => void
+
+    /**
      * 异常操作绑定
      */
     onerror:()=>void
