@@ -1,6 +1,6 @@
 {
     "name": "tools-vue3",
-    "version": "1.0.25",
+    "version": "1.0.26",
     "main": "src/index.ts",
     "license": "MIT",
     "author": "VeigarChen",
