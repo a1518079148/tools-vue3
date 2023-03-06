@@ -88,9 +88,9 @@ interface ISignalrBeanParam {
  */
 interface ISignalrSend {
     /**
-     * WebSocketBean对象
+     * signalrbean对象
      */
-    websocketbean: ISignalrBean
+    signalrbean: ISignalrBean
 
     /**
      * 发送数据
@@ -113,4 +113,14 @@ interface ISignalrSend {
      * 清空所有缓存数据
      */
     clear: () => void
+}
+
+/**
+ * 接收数据管理
+ */
+interface ISignalrMessage {
+    /**
+     * signalrbean对象
+     */
+    signalrbean: ISignalrBean
 }

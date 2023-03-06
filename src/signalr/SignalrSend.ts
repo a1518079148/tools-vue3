@@ -3,13 +3,13 @@ import { ISignalrBean, ISignalrSend } from './signalr'
 import { SignalrStatusEnum } from './SignalrEnum'
 
 /**
- * WebSocket数据发送管理
+ * Signalr数据发送管理
  */
 export default class SignalrSend implements ISignalrSend {
-    websocketbean: ISignalrBean
+    signalrbean: ISignalrBean
 
-    constructor(websocketbean: ISignalrBean) {
-        this.websocketbean = websocketbean
+    constructor(signalrbean: ISignalrBean) {
+        this.signalrbean = signalrbean
     }
 
     /**
@@ -46,7 +46,7 @@ export default class SignalrSend implements ISignalrSend {
      * @param data 数据对象，Object、Array、String
      */
     send(data: any, resend: boolean = false) {
-        if (this.websocketbean.status === SignalrStatusEnum.open) {
+        if (this.signalrbean.status === SignalrStatusEnum.open) {
             let sendId: string = null as any
 
             //先判断是不是缓存待发送的数据，如果是取出待发送的数据和状态
@@ -71,7 +71,7 @@ export default class SignalrSend implements ISignalrSend {
             }
 
             //发送数据
-            this.websocketbean.connection.invoke(data.methodName, ...data.args)
+            this.signalrbean.connection.invoke(data.methodName, ...data.args)
 
             //如果是需要重发的返回sendId
             return resend ? sendId : true
