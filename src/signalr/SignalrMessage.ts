@@ -17,6 +17,19 @@ export default class SignalrMessage {
     }
 
     /**
+     * 连接回调，通知连接上或重连上
+     */
+    onopen = () => {
+        const _this = this
+        Object.keys(this.event.eventMap).forEach((methodName) => {
+            _this.signalrbean.connection.off(methodName)
+            _this.signalrbean.connection.on(methodName, (data) => {
+                _this.event.emit(methodName, data)
+            })
+        })
+    }
+
+    /**
      * 注册数据回调
      * @param methodName
      * @param fun

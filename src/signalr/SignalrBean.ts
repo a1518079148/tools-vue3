@@ -1,7 +1,8 @@
-import signalR from '@microsoft/signalr'
+import * as signalR from '@microsoft/signalr'
 import ObjectUtil from '../ObjectUtil'
-import { ISignalrBean, ISignalrBeanParam, ISignalrSend } from './signalr'
+import { ISignalrBean, ISignalrBeanParam, ISignalrMessage, ISignalrSend } from './signalr'
 import { SignalrStatusEnum } from './SignalrEnum'
+import SignalrMessage from './SignalrMessage'
 import SignalrSend from './SignalrSend'
 
 /**
@@ -12,6 +13,7 @@ export default class SignalrBean implements ISignalrBean {
     connection: signalR.HubConnection = null as any
     param: ISignalrBeanParam = null as any
     sendObj: ISignalrSend = null as any
+    messageObj: ISignalrMessage = null as any
 
     constructor(param: ISignalrBeanParam) {
         this.param = param
@@ -26,6 +28,7 @@ export default class SignalrBean implements ISignalrBean {
         this.status = SignalrStatusEnum.open
 
         if (this.param.onopen) await this.param.onopen()
+        this.messageObj.onopen()
         this.sendObj.onopen()
     }
 
@@ -54,6 +57,41 @@ export default class SignalrBean implements ISignalrBean {
      */
     offsend = (sendId: string) => {
         this.sendObj?.offsend(sendId)
+    }
+
+    /**
+     * 注册数据回调
+     * @param methodName
+     * @param fun
+     * @returns
+     */
+    on = (methodName: string, fun: (data: any) => any) => {
+        return this.messageObj.on(methodName, fun)
+    }
+
+    /**
+     * 传入on方法返回的id进行销毁
+     * @param uids
+     * @returns
+     */
+    off = (...uids: string[]) => {
+        this.messageObj.off(...uids)
+    }
+
+    /**
+     * 传入methodName进行销毁
+     * @param uids
+     * @returns
+     */
+    offName = (methodName: string) => {
+        this.messageObj.offName(methodName)
+    }
+
+    /**
+     * 清空所有消息回调
+     */
+    clear = () => {
+        this.messageObj.clear()
     }
 
     create = async (param?: ISignalrBeanParam) => {
@@ -91,6 +129,9 @@ export default class SignalrBean implements ISignalrBean {
 
         //创建发送数据管理对象
         if (this.sendObj === null) this.sendObj = new SignalrSend(this)
+
+        //创建发送数据管理对象
+        if (this.messageObj === null) this.messageObj = new SignalrMessage(this)
 
         //连接
         const startState = await this.connection.start()

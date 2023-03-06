@@ -123,4 +123,36 @@ interface ISignalrMessage {
      * signalrbean对象
      */
     signalrbean: ISignalrBean
+    
+    /**
+    * 注册数据回调
+    * @param methodName
+    * @param fun
+    * @returns
+    */
+   on: (methodName: string, fun: (data: any) => any) => string
+   
+    /**
+     * 传入on方法返回的id进行销毁
+     * @param uids
+     * @returns
+     */
+    off: (...uids: string[]) => void
+    
+    /**
+     * 传入methodName进行销毁
+     * @param uids
+     * @returns
+     */
+    offName: (methodName: string) => void
+    
+    /**
+     * 清空所有回调
+     */
+    clear: () => void
+
+    /**
+     * 连接回调，通知连接上或重连上
+     */
+    onopen: () => void
 }
