@@ -1,6 +1,6 @@
 {
     "name": "tools-vue3",
-    "version": "1.0.24",
+    "version": "1.0.25",
     "main": "src/index.ts",
     "license": "MIT",
     "author": "VeigarChen",
@@ -15,7 +15,13 @@
     "keywords": [
         "vue3",
         "typescript",
-        "tools"
+        "tools",
+        "axios",
+        "websocket",
+        "signalr",
+        "cookie",
+        "file",
+        "type"
     ],
     "repository": {
         "type": "git",
