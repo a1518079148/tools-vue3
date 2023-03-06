@@ -65,11 +65,6 @@ export default class SignalrSend implements ISignalrSend {
                 this.sendMap[sendId] = data
             }
 
-            //判断是不是对象或者数组，转换为字符串
-            if (ObjectUtil.isObject(data) || Array.isArray(data)) {
-                data = JSON.stringify(data)
-            }
-
             //发送数据
             this.signalrbean.connection.invoke(data.methodName, ...data.args)
 
