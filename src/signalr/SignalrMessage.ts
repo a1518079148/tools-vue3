@@ -21,7 +21,7 @@ export default class SignalrMessage {
      */
     onopen = () => {
         const _this = this
-        Object.keys(this.event.eventMap).forEach((methodName) => {
+        this.event.eventMap.forEach((ctxs, methodName) => {
             _this.signalrbean.connection.off(methodName)
             _this.signalrbean.connection.on(methodName, (data) => {
                 _this.event.emit(methodName, data)

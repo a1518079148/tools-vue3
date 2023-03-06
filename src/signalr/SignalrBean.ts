@@ -52,6 +52,13 @@ export default class SignalrBean implements ISignalrBean {
     }
 
     /**
+     * 发送当前需要重新发送的消息
+     */
+    resend = () => {
+        this.sendObj.onopen()
+    }
+
+    /**
      * 销毁需要重发的数据信息
      * @param sendId
      */
@@ -102,15 +109,21 @@ export default class SignalrBean implements ISignalrBean {
         //修改状态为加载中
         this.status = SignalrStatusEnum.load
 
+        const signalRBuilder = new signalR.HubConnectionBuilder()
+        if (param.isReconnect) {
+            if (param.reconnectConfig) signalRBuilder.withAutomaticReconnect(param.reconnectConfig as any)
+            else signalRBuilder.withAutomaticReconnect()
+        }
+
+        signalRBuilder.withUrl(`${param.url}`, { headers: param.headers })
+
         //创建对象
-        this.connection = new signalR.HubConnectionBuilder()
-            .withAutomaticReconnect()
-            .withUrl(`${param.url}`, { headers: param.headers })
-            .build()
+        this.connection = signalRBuilder.build()
 
         //注册关闭回调
         this.connection.onclose(() => {
             console.log('onclose')
+            if (param?.onclose) param.onclose()
             //修改状态为已关闭
             this.status = SignalrStatusEnum.close
         })
@@ -134,11 +147,16 @@ export default class SignalrBean implements ISignalrBean {
         if (this.messageObj === null) this.messageObj = new SignalrMessage(this)
 
         //连接
-        const startState = await this.connection.start()
-
-        console.log(startState)
-
-        this.onopen()
+        try {
+            await this.connection.start()
+            this.onopen()
+        } catch (err) {
+            if (this.connection.state === signalR.HubConnectionState.Disconnected) {
+                console.log(this.connection.state)
+                //第一次失败就继续连接，之后不走这里进行重连
+                setTimeout(() => this.create(), 5000)
+            }
+        }
     }
 
     dispose = () => {

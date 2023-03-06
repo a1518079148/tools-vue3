@@ -40,6 +40,11 @@ interface ISignalrBean {
     }, ...args: any[]): string | boolean
 
     /**
+     * 发送当前需要重新发送的消息
+     */
+    resend: () => void
+
+    /**
      * 销毁需要重发的数据信息
      * @param sendId
      */
@@ -64,12 +69,17 @@ interface ISignalrBeanParam {
     /**
      * headers
      */
-    headers: any
+    headers?: any
 
     /**
      * 生命周期-在建立连接以后首先调用
      */
     onopen?:()=>Promise<any>
+
+    /**
+     * 生命周期-断开连接后调用，如果开启了重连，重连失败后调用
+     */
+    onclose?:()=>Promise<any>
 
     /**
      * 生命周期-在获取到数据以后首先调用
@@ -79,7 +89,19 @@ interface ISignalrBeanParam {
     /**
      * 生命周期-在重连开始以后首先调用
      */
-    onreconnect?:()=>void
+    onreconnect?: () => void
+
+    //重连
+    
+    /**
+     * 是否需要重连，默认为false
+     */
+    isReconnect?: boolean
+    
+    /**
+     * 重新连接配置
+     */
+    reconnectConfig?:number[] | {nextRetryDelayInMilliseconds:(retryContext: signalR.RetryContext)=> number | null}
 
 }
 
