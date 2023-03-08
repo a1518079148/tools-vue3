@@ -1,6 +1,6 @@
 {
     "name": "tools-vue3",
-    "version": "1.0.30",
+    "version": "1.0.31",
     "main": "src/index.ts",
     "license": "MIT",
     "author": "VeigarChen",
@@ -29,12 +29,12 @@
     },
     "homepage": "http://c44.cc",
     "devDependencies": {
-        "@types/js-cookie": "^3.0.3",
         "prettier": "^2.8.3",
         "tools-javascript": "^1.0.3",
         "typescript": "^4.9.5"
     },
     "dependencies": {
+        "@types/js-cookie": "^3.0.3",
         "@microsoft/signalr": "^7.0.3",
         "axios": "^1.3.4",
         "js-cookie": "^3.0.1",
