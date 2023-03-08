@@ -17,12 +17,7 @@ export default class CookieUtil {
     static set(key: string, value: any) {
         if (this.domain === null) {
             let domain: any = window.location.hostname
-            if (
-                /(127[.]0[.]0[.]1)|(localhost)|(10[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})|(172[.]((1[6-9])|(2\d)|(3[01]))[.]\d{1,3}[.]\d{1,3})|(192[.]168[.]\d{1,3}[.]\d{1,3})/.test(
-                    domain
-                )
-            )
-                this.domain = domain
+            if (/(localhost)|(\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})/.test(domain)) this.domain = domain
             else {
                 domain = domain.split('.')
                 if (domain.length >= 2) {
