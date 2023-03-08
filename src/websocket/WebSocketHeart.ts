@@ -32,7 +32,7 @@ export default class WebSocketHeart implements IWebSocketHeart {
             }
             this.websocketbean.send(this.heartSend)
             this.failNum++
-        }, this.heartGapTime)
+        }, this.heartGapTime) as any
     }
 
     stop = () => {

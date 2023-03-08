@@ -54,7 +54,7 @@ export default class WebSocketReconnect implements IWebSocketReconnect {
             }
             this.websocketbean.create()
             this.num++
-        }, this.reconnectGapTime)
+        }, this.reconnectGapTime) as any
     }
 
     /**

@@ -101,7 +101,11 @@ export default class SignalrBean implements ISignalrBean {
         this.messageObj.clear()
     }
 
+    timeoutTimer = null as any
+
     create = async (param?: ISignalrBeanParam) => {
+        this.timeoutTimer = null
+
         //使用新配置或者老配置
         if (param) this.param = param
         else param = this.param
@@ -153,9 +157,12 @@ export default class SignalrBean implements ISignalrBean {
             this.onopen()
         } catch (err) {
             if (this.connection.state === signalR.HubConnectionState.Disconnected) {
-                console.log(this.connection.state)
                 //第一次失败就继续连接，之后不走这里进行重连
-                setTimeout(() => this.create(), 5000)
+                if (this.timeoutTimer !== undefined)
+                    this.timeoutTimer = setTimeout(() => {
+                        this.timeoutTimer = null
+                        this.create()
+                    }, 5000)
             }
         }
     }
@@ -169,5 +176,7 @@ export default class SignalrBean implements ISignalrBean {
             this.sendObj.clear()
             this.sendObj = null as any
         }
+        clearTimeout(this.timeoutTimer)
+        this.timeoutTimer = undefined
     }
 }
