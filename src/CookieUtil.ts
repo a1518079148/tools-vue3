@@ -29,11 +29,11 @@ export default class CookieUtil {
         value = value + ''
         if (value.length > this.ckl) {
             Cookies.set(key, this.lsTag, { expires: 2e5, domain: this.domain })
-            if (window.localStorage) localStorage.setItem(key, <string>value)
+            localStorage?.setItem(key, <string>value)
         } else {
             const res = Cookies.get(key)
             if (res !== this.lsTag) Cookies.set(key, <string>value, { expires: 2e5, domain: this.domain })
-            else if (window.localStorage) localStorage.setItem(key, <string>value)
+            else localStorage?.setItem(key, <string>value)
         }
     }
 
@@ -43,6 +43,6 @@ export default class CookieUtil {
     static get(key: string): any {
         const res = Cookies.get(key)
         if (res !== this.lsTag) return res
-        else return localStorage.getItem(key)
+        else return localStorage?.getItem(key)
     }
 }
