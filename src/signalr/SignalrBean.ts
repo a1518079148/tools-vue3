@@ -115,7 +115,8 @@ export default class SignalrBean implements ISignalrBean {
             else signalRBuilder.withAutomaticReconnect()
         }
 
-        signalRBuilder.withUrl(`${param.url}`, { headers: param.headers })
+        if (param.options) signalRBuilder.withUrl(`${param.url}`, param.options)
+        else signalRBuilder.withUrl(`${param.url}`)
 
         //创建对象
         this.connection = signalRBuilder.build()

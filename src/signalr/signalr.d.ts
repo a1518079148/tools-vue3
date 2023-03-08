@@ -67,9 +67,9 @@ interface ISignalrBeanParam {
     url: string
 
     /**
-     * headers
+     * options
      */
-    headers?: any
+    options?: signalR.IHttpConnectionOptions
 
     /**
      * 生命周期-在建立连接以后首先调用
