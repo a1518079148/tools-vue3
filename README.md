@@ -18,6 +18,11 @@
 
 > 前端技术交流群：<a href="https://jq.qq.com/?_wv=1027&k=Erh7LBKn" target="_blank">553655769</a>，有什么问题在群里说不定可以找到答案
 
+
+> 开源仓库，欢迎提交更多功能，方便他人，方便自己
+> - <a href="https://gitee.com/veigarchen/tools-vue3" target="_blank">gitee主仓库地址</a>
+> - <a href="https://github.com/a1518079148/tools-vue3" target="_blank">github同步仓库地址</a>
+
 ## 安装使用
 
 ### 安装
