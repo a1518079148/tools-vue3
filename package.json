@@ -1,6 +1,6 @@
 {
     "name": "tools-vue3",
-    "version": "1.0.31",
+    "version": "1.0.32",
     "main": "src/index.ts",
     "license": "MIT",
     "author": "VeigarChen",
@@ -25,9 +25,9 @@
     ],
     "repository": {
         "type": "git",
-        "url": "http://c44.cc"
+        "url": "https://github.com/a1518079148/tools-vue3"
     },
-    "homepage": "http://c44.cc",
+    "homepage": "https://gitee.com/veigarchen/tools-vue3",
     "devDependencies": {
         "prettier": "^2.8.3",
         "tools-javascript": "^1.0.3",
