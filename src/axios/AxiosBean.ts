@@ -81,6 +81,7 @@ export default class AxiosBean {
 
         this.http.interceptors.response.use(
             (response: AxiosResponse<any, any>): any => {
+                //处理文件下载
                 if (response.headers['content-disposition'] !== undefined) {
                     let fileName = 'download'
                     try {
@@ -103,6 +104,11 @@ export default class AxiosBean {
                         status: true
                     }
                 }
+
+                //处理流数据
+                if (response.request?.responseType === 'arraybuffer') return response.data
+
+                //处理json数据
                 let res: AxiosBeanRes = response.data
                 if (res.code) {
                     res.code += ''
