@@ -77,21 +77,12 @@ export default class SignalrBean implements ISignalrBean {
     }
 
     /**
-     * 传入on方法返回的id进行销毁
-     * @param uids
-     * @returns
+     * @mode 模式1:多id或者methodName名称传入-off('onid1')、off('onid1','getData'...)
+     * @mode 模式2:on方法传入的methodName和方法-off('getData',fun)
+     * @param uids-传入的是id或者methodName加方法清理的是methodName的单个注册，传入的是methodName清理methodName所有注册
      */
-    off = (...uids: string[]) => {
+    off = (...uids: any[]) => {
         this.messageObj.off(...uids)
-    }
-
-    /**
-     * 传入methodName进行销毁
-     * @param uids
-     * @returns
-     */
-    offName = (methodName: string) => {
-        this.messageObj.offName(methodName)
     }
 
     /**
