@@ -18,7 +18,6 @@ export default class WebSocketBean implements IWebSocketBean {
 
     constructor(param: IWebSocketBeanParam) {
         this.param = param
-        this.create(this.param)
     }
 
     onopen = async () => {
@@ -54,7 +53,7 @@ export default class WebSocketBean implements IWebSocketBean {
         this.reconnect.start()
     }
 
-    create = (param?: IWebSocketBeanParam) => {
+    start = (param?: IWebSocketBeanParam) => {
         //如果已经创建先关闭
         this.close()
 

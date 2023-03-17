@@ -36,7 +36,7 @@ interface IWebSocketBean {
      * @param param 
      * @returns 
      */
-    create: (param?: IWebSocketBeanParam) => void
+    start: (param?: IWebSocketBeanParam) => void
 
     /**
      * 发送数据
