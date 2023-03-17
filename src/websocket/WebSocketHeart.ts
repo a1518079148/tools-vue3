@@ -40,7 +40,10 @@ export default class WebSocketHeart implements IWebSocketHeart {
         this.timer = null as any
     }
 
-    onmessage = (ev: MessageEvent<any>) => {
-        if (ev.data === this.heartGet) this.failNum = 0
+    onmessage = (ev: any) => {
+        const messagePrefix = this.websocketbean.param.messagePrefix ?? ''
+        const messageSuffix = this.websocketbean.param.messageSuffix ?? ''
+        const heartGetMessage = messagePrefix + this.heartGet + messageSuffix
+        if (ev === heartGetMessage) this.failNum = 0
     }
 }

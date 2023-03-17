@@ -88,6 +88,16 @@ interface IWebSocketBeanParam {
     sendSuffix?: string
 
     /**
+     * 接收消息前缀，默认为空
+     */
+    messagePrefix?: string
+    
+    /**
+     * 接收消息后缀，默认为空
+     */
+    messageSuffix?: string
+
+    /**
      * 生命周期-在建立连接以后首先调用
      */
     onopen?:()=>Promise<any>
@@ -192,7 +202,7 @@ interface IWebSocketHeart {
      * @param ev 
      * @returns 
      */
-    onmessage:(ev: MessageEvent<any>) => any
+    onmessage:(ev: any) => any
 }
 
 /**
@@ -243,6 +253,16 @@ interface IWebSocketSend {
      * WebSocketBean对象
      */
     websocketbean: IWebSocketBean
+
+    /**
+     * 发送信息前缀
+     */
+    sendPrefix: string
+
+    /**
+     * 发送信息后缀
+     */
+    sendSuffix: string
 
     /**
      * 发送数据

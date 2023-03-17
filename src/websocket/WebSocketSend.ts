@@ -1,6 +1,7 @@
-import ObjectUtil from '../ObjectUtil'
 import { IWebSocketBean, IWebSocketSend } from './websocket'
 import { WebSocketStatusEnum } from './WebSocketEnum'
+
+const isObject = (val: any): any => val !== null && typeof val === 'object'
 
 /**
  * WebSocket数据发送管理
@@ -8,8 +9,13 @@ import { WebSocketStatusEnum } from './WebSocketEnum'
 export default class WebSocketSend implements IWebSocketSend {
     websocketbean: IWebSocketBean
 
+    sendPrefix: string
+    sendSuffix: string
+
     constructor(websocketbean: IWebSocketBean) {
         this.websocketbean = websocketbean
+        this.sendPrefix = this.websocketbean.param.sendPrefix ?? ''
+        this.sendSuffix = this.websocketbean.param.sendSuffix ?? ''
     }
 
     /**
@@ -50,7 +56,7 @@ export default class WebSocketSend implements IWebSocketSend {
             let sendId: string = null as any
 
             //先判断是不是缓存待发送的数据，如果是取出待发送的数据和状态
-            if (ObjectUtil.isObject(data)) {
+            if (isObject(data)) {
                 if (data.tag === this.tag) {
                     resend = data.resend
                     //如果resend是true，sendId一定存在
@@ -66,19 +72,19 @@ export default class WebSocketSend implements IWebSocketSend {
             }
 
             //判断是不是对象或者数组，转换为字符串
-            if (ObjectUtil.isObject(data) || Array.isArray(data)) {
+            if (isObject(data) || Array.isArray(data)) {
                 data = JSON.stringify(data)
             }
 
             //发送数据
-            this.websocketbean.websocket.send(data)
+            this.websocketbean.websocket.send(this.sendPrefix + data + this.sendSuffix)
 
             //如果是需要重发的返回sendId
             return resend ? sendId : true
         } else {
             let sendId: string = null as any
 
-            if (ObjectUtil.isObject(data)) {
+            if (isObject(data)) {
                 //说明是缓存待发送数据，不做处理
                 if (data.tag === this.tag) return false
             }
