@@ -82,7 +82,10 @@ export default class AxiosBean {
         this.http.interceptors.response.use(
             (response: AxiosResponse<any, any>): any => {
                 //处理文件下载
-                if (response.headers['content-disposition'] !== undefined) {
+                if (
+                    response.headers['content-disposition'] !== undefined &&
+                    response.request?.responseType === 'blob'
+                ) {
                     let fileName = 'download'
                     try {
                         if (param.setFileName) fileName = param.setFileName(response)
