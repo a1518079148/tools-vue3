@@ -86,24 +86,24 @@ export default class AxiosBean {
                         response.headers[param.downloadHeader] !== undefined &&
                         response.request?.responseType === 'blob'
                     ) {
-                    }
-                    let fileName = 'download'
-                    try {
-                        fileName = response.headers[param.downloadHeader]
-                        fileName = decodeURI(fileName)
-                    } catch {}
-                    try {
-                        let url = URL.createObjectURL(response.data)
-                        let a = document.createElement('a')
-                        a.href = url
-                        a.setAttribute('download', fileName)
-                        document.body.appendChild(a)
-                        a.click()
-                        document.body.removeChild(a)
-                    } catch {}
-                    return {
-                        download: false,
-                        status: true
+                        let fileName = 'download'
+                        try {
+                            fileName = response.headers[param.downloadHeader]
+                            fileName = decodeURI(fileName)
+                        } catch {}
+                        try {
+                            let url = URL.createObjectURL(response.data)
+                            let a = document.createElement('a')
+                            a.href = url
+                            a.setAttribute('download', fileName)
+                            document.body.appendChild(a)
+                            a.click()
+                            document.body.removeChild(a)
+                        } catch {}
+                        return {
+                            download: false,
+                            status: true
+                        }
                     }
                 }
 
