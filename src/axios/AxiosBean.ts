@@ -53,15 +53,14 @@ export default class AxiosBean {
          */
         error?: (res: AxiosBeanRes) => any
         /**
-         * 设置文件下载时的文件名称
-         * @param res
-         * @returns
-         */
-        setFileName?: (res: AxiosResponse<any, any>) => string
-        /**
          * 超时时间
          */
         outtime?: number
+
+        /**
+         * 下载文件消息头
+         */
+        downloadHeader?: string
     }) {
         this.http = axios.create({
             baseURL: param.baseUrl,
@@ -82,17 +81,16 @@ export default class AxiosBean {
         this.http.interceptors.response.use(
             (response: AxiosResponse<any, any>): any => {
                 //处理文件下载
-                if (
-                    response.headers['content-disposition'] !== undefined &&
-                    response.request?.responseType === 'blob'
-                ) {
+                if (param.downloadHeader) {
+                    if (
+                        response.headers[param.downloadHeader] !== undefined &&
+                        response.request?.responseType === 'blob'
+                    ) {
+                    }
                     let fileName = 'download'
                     try {
-                        if (param.setFileName) fileName = param.setFileName(response)
-                        else {
-                            fileName = response.headers['content-disposition'].split('filename*=')[1]
-                            fileName = decodeURI(fileName.split("'")[2])
-                        }
+                        fileName = response.headers[param.downloadHeader]
+                        fileName = decodeURI(fileName)
                     } catch {}
                     try {
                         let url = URL.createObjectURL(response.data)
@@ -104,6 +102,7 @@ export default class AxiosBean {
                         document.body.removeChild(a)
                     } catch {}
                     return {
+                        download: false,
                         status: true
                     }
                 }
