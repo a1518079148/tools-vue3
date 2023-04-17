@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite4+Vue3+TS - #{title}</title>
+    <style>
+
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .page-load {
+            position: absolute;
+            background: var(--color-bg);
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .page-load-light {
+            --color-bg: #ffffff;
+            --color-icon: #000000;
+            --color-text: #0000004d;
+            --color-text-bg: #ffffff;
+        }
+
+        .page-load-dark {
+            --color-bg: #000000;
+            --color-icon: #ffffff;
+            --color-text: #ffffff4d;
+            --color-text-bg: #ffffff;
+        }
+
+        .show {
+            opacity: 0;
+        }
+
+        .slideShine {
+            font-family: "Microsoft YaHei";
+            font-size: 16px;
+            text-align: center;
+            background: #111 -webkit-linear-gradient(left, #ab8a8a, var(--color-text-bg)) 0 0 no-repeat;
+            background-size: 20px;
+            -webkit-background-size: 20px;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: var(--color-text);
+            animation: slideShine 2s infinite;
+        }
+
+        @keyframes slideShine {
+            0% { background-position: -20% 0; }
+            100% { background-position: 120% 100%; }
+        }
+
+        .rectAni { animation: rectAni 0.6s infinite linear ; }
+        @keyframes rectAni {
+            0% { opacity:0.2;height: 10px;y:10; }
+            50% { opacity:1;height: 20px;y:5; }
+            100% { opacity:0.2;height: 10px;y:10; }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false" style="position: unset!important;">
+    <div id="app">
+        <div class="page-load page-load-light">
+            <div style="transform:translateY(-30px);display: flex;flex-direction: column;align-items: center;">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="60px"
+                    viewBox="0 0 24 30" style="color:var(--color-icon)" xml:space="preserve">
+                    <rect x="0" y="10" width="4" height="10" fill="currentColor" opacity="0.2" class="rectAni" style="animation-delay: 0s;"></rect>
+                    <rect x="8" y="10" width="4" height="10" fill="currentColor" opacity="0.2" class="rectAni" style="animation-delay: 0.15s;"></rect>
+                    <rect x="16" y="10" width="4" height="10" fill="currentColor" opacity="0.2" class="rectAni" style="animation-delay: 0.3s;"></rect>
+                </svg>
+                <div class="slideShine">正在加载 , 请耐心等待</div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

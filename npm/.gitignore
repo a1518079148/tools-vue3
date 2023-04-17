@@ -1,0 +1,12 @@
+# dir
+node_modules
+dist
+build/auto/*.d.ts
+
+# file
+stats.html
+
+# lock
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
