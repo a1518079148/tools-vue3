@@ -8,11 +8,13 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import Scope from '~/utils/Scope'
+const { onFun, createObj } = Scope
 
 defineProps({
     name: { default: '' }
 })
-Scope.onFun('n', () => {
+
+onFun('n', () => {
     console.log('T1')
 })
 
@@ -20,8 +22,6 @@ const conf = reactive({
     name: 'T1'
 })
 
-Scope.createObj('conf', () => {
-    return conf
-})
+createObj('conf', conf)
 </script>
 <style lang="less" scoped></style>

@@ -37,14 +37,20 @@ export default class Scope {
         return { emitFun }
     }
 
-    static createObj = (key: string, getObjFun: () => any) => {
+    static createObj = (key: string, getObjFun: any) => {
         const vm: any = getCurrentInstance()
+        let obj = getObjFun
+        if (typeof obj !== 'function') {
+            obj = () => {
+                return getObjFun
+            }
+        }
         if (vm) {
             let funs = vm[objKey]
             if (!funs) funs = []
             funs.push({
                 key,
-                fun: getObjFun
+                fun: obj
             })
             vm[objKey] = funs
         }

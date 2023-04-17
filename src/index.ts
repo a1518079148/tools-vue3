@@ -1,5 +1,6 @@
 import AxiosBean, { AxiosBeanRes } from './axios/AxiosBean'
 import CookieUtil from './CookieUtil'
+import Scope from './Scope'
 import CVue3 from './CVue3'
 import FileUtil from './FileUtil'
 import ObjectUtil from './ObjectUtil'
@@ -18,5 +19,6 @@ export {
     WebSocketBean,
     SignalrBean,
     type AxiosBeanRes,
-    DateType
+    DateType,
+    Scope
 }
