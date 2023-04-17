@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "element-plus": "^2.2.32",
-    "tools-javascript": "^1.0.9",
-    "tools-vue3": "^1.0.36",
+    "tools-javascript": "^1.0.10",
+    "tools-vue3": "^1.0.42",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

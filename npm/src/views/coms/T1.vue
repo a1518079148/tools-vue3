@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
-import Scope from '~/utils/Scope'
+import { Scope } from 'tools-vue3'
 const { onFun, createObj } = Scope
 
 defineProps({

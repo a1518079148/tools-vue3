@@ -7,16 +7,17 @@
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import Scope from '~/utils/Scope'
+import { Scope } from 'tools-vue3'
+const { getFun, useObj } = Scope
 
 defineProps({
     name: { default: '' }
 })
-const { emitFun } = Scope.getFun('n')
-const conf = Scope.useObj('conf')
-const conf1 = Scope.useObj('conf1')
-const conf2 = Scope.useObj('conf')
-const conf3 = Scope.useObj('conf', 2)
+const { emitFun } = getFun('n')
+const conf = useObj('conf')
+const conf1 = useObj('conf1')
+const conf2 = useObj('conf')
+const conf3 = useObj('conf', 2)
 
 onMounted(() => {
     emitFun('T3')
