@@ -61,7 +61,13 @@ export default class AxiosBean {
          * 下载文件消息头
          */
         downloadHeader?: string
+
+        /**
+         * 成功code
+         */
+        code?: string
     }) {
+        const code = param.code ?? '200'
         this.http = axios.create({
             baseURL: param.baseUrl,
             timeout: param.outtime ?? 30000
@@ -114,7 +120,7 @@ export default class AxiosBean {
                 let res: AxiosBeanRes = response.data
                 if (res.code) {
                     res.code += ''
-                    if (res.status === undefined) res.status = res.code === '200'
+                    if (res.status === undefined) res.status = res.code === code
                 }
                 if (param.res) param.res(res)
                 return res
