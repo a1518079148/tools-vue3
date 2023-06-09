@@ -16,15 +16,7 @@ export default class CookieUtil {
      */
     static set(key: string, value: any) {
         if (this.domain === null) {
-            let domain: any = window.location.hostname
-            if (/(localhost)|(\d{1,3}[.]\d{1,3}[.]\d{1,3}[.]\d{1,3})/.test(domain)) this.domain = domain
-            else {
-                domain = domain.split('.')
-                if (domain.length >= 2) {
-                    domain = domain[domain.length - 2] + '.' + domain[domain.length - 1]
-                    this.domain = domain
-                }
-            }
+            this.domain = window.location.hostname
         }
         value = value + ''
         if (value.length > this.ckl) {
