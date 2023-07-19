@@ -1,10 +1,9 @@
-import WebSocketStatusEnum from './WebSocketEnum'
-interface IWebSocketBean {
-
+import { WebSocketStatusEnum } from './WebSocketEnum'
+export interface IWebSocketBean {
     /**
      * 连接状态
      */
-    status: WebSocketStatusEnum 
+    status: WebSocketStatusEnum
 
     /**
      * WebSocket对象
@@ -14,8 +13,8 @@ interface IWebSocketBean {
     /**
      * 心跳对象
      */
-    heart: WebSocketHeart
-    
+    heart: IWebSocketHeart
+
     /**
      * 重连对象
      */
@@ -29,12 +28,12 @@ interface IWebSocketBean {
     /**
      * 参数信息
      */
-    param:IWebSocketBeanParam
+    param: IWebSocketBeanParam
 
     /**
      * 关闭旧连接创建新连接
-     * @param param 
-     * @returns 
+     * @param param
+     * @returns
      */
     start: (param?: IWebSocketBeanParam) => void
 
@@ -54,7 +53,7 @@ interface IWebSocketBean {
     /**
      * 异常操作绑定
      */
-    onerror:()=>void
+    onerror: () => void
 
     /**
      * 关闭socket，销毁绑定事件、心跳事件、窗口关闭事件，修改状态为已关闭
@@ -70,8 +69,7 @@ interface IWebSocketBean {
 /**
  * 参数信息
  */
-interface IWebSocketBeanParam {
-
+export interface IWebSocketBeanParam {
     /**
      * 连接地址
      */
@@ -81,7 +79,7 @@ interface IWebSocketBeanParam {
      * 发送消息前缀，默认为空
      */
     sendPrefix?: string
-    
+
     /**
      * 发送消息后缀，默认为空
      */
@@ -91,7 +89,7 @@ interface IWebSocketBeanParam {
      * 接收消息前缀，默认为空
      */
     messagePrefix?: string
-    
+
     /**
      * 接收消息后缀，默认为空
      */
@@ -100,22 +98,22 @@ interface IWebSocketBeanParam {
     /**
      * 生命周期-在建立连接以后首先调用
      */
-    onopen?:()=>Promise<any>
+    onopen?: () => Promise<any>
 
     /**
      * 生命周期-在获取到数据以后首先调用
      */
-    onmessage?:(ev: MessageEvent<any>) => any
+    onmessage?: (ev: MessageEvent<any>) => any
 
     /**
      * 生命周期-在关闭或者连接异常以后首先调用
      */
-    onerror?:()=>void
+    onerror?: () => void
 
     /**
      * 生命周期-在重连开始以后首先调用
      */
-    onreconnect?:()=>void
+    onreconnect?: () => void
 
     //重连参数列表
 
@@ -132,65 +130,64 @@ interface IWebSocketBeanParam {
     /**
      * 是否需要重连，默认为false
      */
-    needReconnect?:boolean 
+    needReconnect?: boolean
 
     /**
      * 重连失败通知
      */
-    onFailReconnect?:()=>void
+    onFailReconnect?: () => void
 
     //心跳参数列表
 
     /**
      * 心跳发送内容，默认为heartSend
      */
-    heartSend?:string
+    heartSend?: string
 
     /**
      * 心跳接收内容，默认为heartGet
      */
-    heartGet?:string
+    heartGet?: string
 
     /**
      * 心跳发送间隔时间，默认为30000
      */
-    heartGapTime?:number
+    heartGapTime?: number
 
     /**
      * 心跳无响应上限，默认为10
      */
-    heartFailNum?:number
+    heartFailNum?: number
 }
 
 /**
  * 心跳
  */
-interface IWebSocketHeart {
-
+export interface IWebSocketHeart {
     /**
      * 心跳发送内容，默认为heartSend
      */
-    heartSend:string
+    heartSend: string
 
     /**
      * 心跳接收内容，默认为heartGet
      */
-    heartGet:string
+    heartGet: string
 
     /**
      * 心跳发送间隔时间，默认为30000
      */
-    heartGapTime:number
+    heartGapTime: number
 
     /**
      * 心跳无响应次数
      */
-    failNum:number
+    failNum: number
 
     /**
      * 心跳无响应上限，默认为10
      */
-    heartFailNum:number
+    heartFailNum: number
 
     /**
      * WebSocketBean对象
@@ -199,16 +196,16 @@ interface IWebSocketHeart {
 
     /**
      * 获取心跳信息
-     * @param ev 
-     * @returns 
+     * @param ev
+     * @returns
      */
-    onmessage:(ev: any) => any
+    onmessage: (ev: any) => any
 }
 
 /**
  * 重连
  */
-interface IWebSocketReconnect {
+export interface IWebSocketReconnect {
     /**
      * 开启状态
      */
@@ -242,13 +239,12 @@ interface IWebSocketReconnect {
      * 关闭重连
      */
     stop: () => void
-
 }
 
 /**
  * 发送数据管理
  */
-interface IWebSocketSend {
+export interface IWebSocketSend {
     /**
      * WebSocketBean对象
      */
