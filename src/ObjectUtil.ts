@@ -42,4 +42,25 @@ export default class ObjectUtil {
             })
         }
     }
+
+    /**
+     * 深度合并对象，老字段覆盖值或保留，新字段新增
+     * @param obj1
+     * @param obj2
+     * @returns
+     */
+    static deepMerge = (obj1: any, obj2: any): any => {
+        const mergedObj = { ...obj1 }
+        for (const key in obj2) {
+            if (obj2.hasOwnProperty(key)) {
+                if (typeof obj2[key] === 'object' && obj1.hasOwnProperty(key) && typeof obj1[key] === 'object') {
+                    mergedObj[key] = ObjectUtil.deepMerge(obj1[key], obj2[key])
+                } else {
+                    mergedObj[key] = obj2[key]
+                }
+            }
+        }
+
+        return mergedObj
+    }
 }
