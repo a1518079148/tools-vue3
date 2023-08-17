@@ -67,7 +67,7 @@ export default class Scope {
      * @param index 级别-存在多个时用到，默认为1
      * @returns
      */
-    static useObj = <T>(key: string, index: number = 1): T => {
+    static useObj = <T = any>(key: string, index: number = 1): T => {
         let vm: any = getCurrentInstance()
         let run = 0
         let fun: any = () => null
