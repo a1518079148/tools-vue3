@@ -37,6 +37,11 @@ export default class Scope {
         return { emitFun }
     }
 
+    /**
+     * 创建组件内共享变量
+     * @param key 共享名称
+     * @param getObjFun 返回reactive对象或者返回reactive对象的方法
+     */
     static createObj = (key: string, getObjFun: any) => {
         const vm: any = getCurrentInstance()
         let obj = getObjFun
@@ -56,7 +61,13 @@ export default class Scope {
         }
     }
 
-    static useObj = (key: string, index: number = 1) => {
+    /**
+     * 获取组件内共享变量
+     * @param key 共享名称
+     * @param index 级别-存在多个时用到，默认为1
+     * @returns
+     */
+    static useObj = <T>(key: string, index: number = 1): T => {
         let vm: any = getCurrentInstance()
         let run = 0
         let fun: any = () => null
@@ -75,7 +86,7 @@ export default class Scope {
                 }
             }
         }
-        return fun()
+        return fun() as T
     }
 }
 
