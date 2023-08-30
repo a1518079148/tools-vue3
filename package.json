@@ -25,9 +25,9 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/a1518079148/tools-vue3"
+        "url": "https://gitee.com/veigarchen"
     },
-    "homepage": "https://gitee.com/veigarchen/tools-vue3",
+    "homepage": "https://gitee.com/veigarchen",
     "devDependencies": {
         "prettier": "^2.8.3",
         "tools-javascript": "^1.0.3",
