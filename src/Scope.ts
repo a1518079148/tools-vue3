@@ -86,7 +86,7 @@ export default class Scope {
                 }
             }
         }
-        return fun() as T
+        return fun()
     }
 }
 
