@@ -1,5 +1,6 @@
 import AxiosBean, { AxiosBeanRes } from './axios/AxiosBean'
 import CookieUtil from './CookieUtil'
+import LSUtil from './LSUtil'
 import Scope from './Scope'
 import CVue3 from './CVue3'
 import FileUtil from './FileUtil'
@@ -12,6 +13,7 @@ import WebSocketBean from './websocket/WebSocketBean'
 export {
     CVue3,
     CookieUtil,
+    LSUtil,
     ObjectUtil,
     TimeUtil,
     FileUtil,
